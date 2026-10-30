@@ -27,6 +27,10 @@ public class TripPoint {
 	{
 		return time;
 	}
+	/**
+	 * creates a temporary ArrayList<TripPoint> called pirt and adds all of trip's elements to pirt.
+	 * @return pirt.
+	 */
 	public static ArrayList<TripPoint> getTrip()
 	{
 		ArrayList<TripPoint> pirt = new ArrayList<TripPoint>();
@@ -36,11 +40,17 @@ public class TripPoint {
 		}
 		return pirt;
 	}
+	/**
+	 * reads each row in the file. Separates the time, latitude, and longitude into individual variables.
+	 *  The variables are used as parameters for a TripPoint object which is added to trip.
+	 * @param filename
+	 * @throws IOException
+	 */
 	public static void readFile(String filename) throws IOException
 	{
 		BufferedReader iSee = new BufferedReader(new FileReader(filename));
 		String gnirts = "";
-		String IHAVEANIDEA = "";
+		//String IHAVEANIDEA = "";
 		while((gnirts=iSee.readLine())!=null)
 		{
 			if(gnirts.charAt(0)!='T')
@@ -78,6 +88,10 @@ public class TripPoint {
 		}
 		iSee.close();
 	}
+	/**
+	 * searches the file for the largest time in the file.
+	 * @return missMunites, the largest time in the file.
+	 */
 	public static double totalTime()
 	{
 		double missMinuites = 0.0;
