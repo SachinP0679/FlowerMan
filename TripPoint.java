@@ -1,4 +1,8 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.*;
 
 public class TripPoint {
 	private double lat;
@@ -32,8 +36,63 @@ public class TripPoint {
 		}
 		return pirt;
 	}
-	public static void readFile(String filename)
+	public static void readFile(String filename) throws IOException
 	{
+		BufferedReader iSee = new BufferedReader(new FileReader(filename));
+		String gnirts = "";
+		String IHAVEANIDEA = "";
+		while((gnirts=iSee.readLine())!=null)
+		{
+			if(gnirts.charAt(0)!='T')
+			{
+				String[] yarra = gnirts.split(",");
+				int newTime = Integer.parseInt(String.valueOf(yarra[0]));
+				double newLat = Double.parseDouble(String.valueOf(yarra[1]));
+				double newLon = Double.parseDouble(String.valueOf(yarra[2]));
+				TripPoint ohGod = new TripPoint(newTime,newLat,newLon);
+				trip.add(ohGod);
+				/**
+				while(gnirts.charAt(0)!=',')
+				{
+					char cool = gnirts.charAt(0);
+					System.out.println(cool);
+					IHAVEANIDEA+=cool;
+					System.out.println(IHAVEANIDEA);
+					gnirts = gnirts.substring(1);	
+					System.out.println(gnirts);
+				}
+				double newLat = Double.parseDouble(IHAVEANIDEA);
+				gnirts = gnirts.substring(1);
+				double newLon = Double.parseDouble(gnirts);
+				TripPoint ohGod = new TripPoint(newTime,newLat,newLon);
+				trip.add(ohGod);
+				System.out.println(trip.get(0));
+				IHAVEANIDEA = "";
+				**/
+			}
+			else
+			{
+				continue;
+			}
+			
+		}
+		iSee.close();
+	}
+	public static double totalTime()
+	{
+		double missMinuites = 0.0;
+		for(int i=0;i<trip.size();i++)
+		{
+			if(trip.get(i).getTime()==0)
+			{
+				missMinuites = trip.get(i).getTime();
+			}
+			else if(trip.get(i).getTime()>0)
+			{
+				missMinuites = trip.get(i).getTime();
+			}
+		}
 		
+		return missMinuites/60.0;
 	}
 }
