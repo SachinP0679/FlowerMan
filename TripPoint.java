@@ -109,4 +109,17 @@ public class TripPoint {
 		
 		return missMinuites/60.0;
 	}
+	public static double haversineDistance(TripPoint a, TripPoint b)
+	{
+		double can =Math.toRadians(b.getLat()-a.getLat());
+		double air = Math.toRadians(b.getLon()-a.getLon());
+		
+		double empty = Math.pow(Math.sin(can/2),2);
+		double the = Math.cos(Math.toRadians(a.getLat()));
+		double then = Math.cos(Math.toRadians(b.getLat()));
+		double full = empty + (the*then);
+		double jeez = full*Math.pow(Math.sin(air/2),2);
+		double world = 2*Math.asin(Math.sqrt(jeez));
+		return world*6377.45;
+	}
 }
