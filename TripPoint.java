@@ -48,6 +48,7 @@ public class TripPoint {
 	 */
 	public static void readFile(String filename) throws IOException
 	{
+		trip.clear();
 		BufferedReader iSee = new BufferedReader(new FileReader(filename));
 		String gnirts = "";
 		//String IHAVEANIDEA = "";
@@ -121,5 +122,35 @@ public class TripPoint {
 		double jeez = full*Math.pow(Math.sin(air/2),2);
 		double world = 2*Math.asin(Math.sqrt(jeez));
 		return world*6377.45;
+	}
+	public static double totalDistance()
+	{
+		double stepCount = 0.0;
+		int j = 0;
+		for(int i = 0;i<trip.size();i++)
+		{
+			if(i+1<trip.size())
+			{
+				stepCount += haversineDistance(trip.get(i),trip.get(i+1));
+			}
+			System.out.println(stepCount);
+			j++;
+		}
+		return stepCount;
+	}
+	public static double avgSpeed(TripPoint a, TripPoint b)
+	{
+	    double totaltarinisticTime = 0.0;
+		if(b.getTime()>a.getTime())
+		{
+			totaltarinisticTime = b.getTime()-a.getTime();
+		}
+		else
+		{
+			totaltarinisticTime = a.getTime()-b.getTime();
+		}
+		System.out.println(totaltarinisticTime);
+		totaltarinisticTime /= 60.0;
+		return haversineDistance(a,b)/totaltarinisticTime;
 	}
 }
