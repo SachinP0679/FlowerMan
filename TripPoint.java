@@ -112,27 +112,25 @@ public class TripPoint {
 	}
 	public static double haversineDistance(TripPoint a, TripPoint b)
 	{
-		double can =Math.toRadians(b.getLat()-a.getLat());
+		double can = Math.toRadians(b.getLat()-a.getLat());
 		double air = Math.toRadians(b.getLon()-a.getLon());
 		
-		double empty = Math.pow(Math.sin(can/2),2);
+		double empty = 1-Math.cos(can);
+		double empty2 = 1-Math.cos(air);
 		double the = Math.cos(Math.toRadians(a.getLat()));
 		double then = Math.cos(Math.toRadians(b.getLat()));
-		double full = empty + (the*then);
-		double jeez = full*Math.pow(Math.sin(air/2),2);
+		double full = empty + (the*then*empty2);
+		double jeez = full/2.0;
 		double world = 2*Math.asin(Math.sqrt(jeez));
-		return world*6377.45;
+		return world*6371.0;
 	}
 	public static double totalDistance()
 	{
 		double stepCount = 0.0;
 		int j = 0;
-		for(int i = 0;i<trip.size();i++)
+		for(int i = 0;i<trip.size()-1;i++)
 		{
-			if(i+1<trip.size())
-			{
-				stepCount += haversineDistance(trip.get(i),trip.get(i+1));
-			}
+			stepCount += haversineDistance(trip.get(i),trip.get(i+1));
 			System.out.println(stepCount);
 			j++;
 		}
