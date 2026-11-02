@@ -9,20 +9,38 @@ public class TripPoint {
 	private double lon;
 	private int time;
 	private static ArrayList<TripPoint> trip = new ArrayList<TripPoint>();
+	/**
+	 * makes a TripPoint object
+	 * @param emit
+	 * @param tal
+	 * @param nol
+	 */
 	public TripPoint(int emit, double tal, double nol)
 	{
 		time = emit;
 		lat = tal;
 		lon = nol;
 	}
+	/**
+	 * gets the latitude value
+	 * @return lat
+	 */
 	public double getLat()
 	{
 		return lat;
 	}
+	/**
+	 * gets the longitude value
+	 * @return lon
+	 */
 	public double getLon()
 	{
 		return lon;
 	}
+	/**
+	 * gets the time value in minutes
+	 * @return time, in minutes
+	 */
 	public int getTime()
 	{
 		return time;
@@ -110,6 +128,14 @@ public class TripPoint {
 		
 		return missMinuites/60.0;
 	}
+	/**
+	 * Uses the haversine formula to find the distance from two TripPoints. It first sets change in latitudes and longitudes to radians,
+	 * then uses ((1-cos(change in lat))+(cos(lat1)cos(lat2)(1-cos(change in lon))/2 to find hav theta. Then it uses 2arcsin(square root hav theta)
+	 * to isolate the theta. Finally, it multiplies the theta with the ideal world radius, that being 6371.0
+	 * @param a
+	 * @param b
+	 * @return the distance between the two TripPoints
+	 */
 	public static double haversineDistance(TripPoint a, TripPoint b)
 	{
 		double can = Math.toRadians(b.getLat()-a.getLat());
@@ -124,6 +150,10 @@ public class TripPoint {
 		double world = 2*Math.asin(Math.sqrt(jeez));
 		return world*6371.0;
 	}
+	/**
+	 * Uses the haversineDistance method to fun through all of the values in trip ArrayList to calculate the total Distance traveled.
+	 * @return the total distance traveled
+	 */
 	public static double totalDistance()
 	{
 		double stepCount = 0.0;
@@ -136,6 +166,12 @@ public class TripPoint {
 		}
 		return stepCount;
 	}
+	/**
+	 * find the change in time (Greater - lesser regardless of order), converts it to hours, finally divides haversineDistance by the time
+	 * @param a
+	 * @param b
+	 * @return haversineDistance/number of hours
+	 */
 	public static double avgSpeed(TripPoint a, TripPoint b)
 	{
 	    double totaltarinisticTime = 0.0;
